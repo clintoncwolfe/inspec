@@ -112,6 +112,10 @@ module Inspec
         errors.push("Missing profile #{field} in #{ref}")
       end
 
+      unless params[:name] =~ /^[\w-]+$/
+        warnings.push("[DEPRECATED] Profile names must only contain alphanumerics, underscores, and dashes (#{params[:name]}).  This will break in InSpec 2.0")
+      end
+      
       # if version is set, ensure it is correct
       if !params[:version].nil? && !valid_version?(params[:version])
         errors.push('Version needs to be in SemVer format')
